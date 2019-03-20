@@ -1,7 +1,6 @@
 package gofast
 
 import (
-	"fmt"
 	"math"
 	"reflect"
 	"runtime"
@@ -32,7 +31,6 @@ func For(st, fi, in int, function interface{}) {
 			finish = fi
 		}
 
-		fmt.Println(start, finish)
 		go func(s, f int) {
 			defer wg.Done()
 			for ; s < f; s += in {
