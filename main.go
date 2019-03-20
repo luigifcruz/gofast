@@ -2,12 +2,11 @@ package gofast
 
 import (
 	"math"
-	"reflect"
 	"runtime"
 	"sync"
 )
 
-func For(st, fi, in int, function interface{}) {
+func For(st, fi, in int, function func(int)) {
 	var wg sync.WaitGroup
 
 	threads := runtime.NumCPU()
@@ -34,8 +33,7 @@ func For(st, fi, in int, function interface{}) {
 		go func(s, f int) {
 			defer wg.Done()
 			for ; s < f; s += in {
-				reflect.ValueOf(function).Call([]reflect.Value{
-					reflect.ValueOf(s), reflect.ValueOf(f)})
+				function(s)
 			}
 		}(start, finish)
 	}
